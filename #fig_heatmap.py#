@@ -1,0 +1,122 @@
+from data_funcs import *
+from pylab import *
+from matplotlib.pyplot import savefig
+from cc_strat import tag_tr
+from collections import Counter
+
+ipath = '../data/'
+opath = '../figures/'
+
+sfreq = 6
+startFrm = 200
+treatFrm = 230
+ttreat = (treatFrm - startFrm) / sfreq
+
+exp_path = 'NCSoffpool/'
+tag_order = ['G1', 'G1S', 'SG2', 'G2', 'G2M']
+
+
+# load data
+trl = Load_Tracks(ipath + exp_path)
+# sort by tag
+trl_srt, trinfo_srt = sort_by_tag(trl)
+# get data matrix
+fc = getDataMatrix(exp, trl_srt, 3, sfreq, startFrm)
+gm = getDataMatrix(exp, trl_srt, 5, sfreq, startFrm)
+tvec = fc.tvec
+fca = fc.all
+gma = gm.all
+# bin
+fca = bin_dtmat(fca)
+gma = bin_dtmat(gma)
+
+
+# plot
+
+
+
+def sort_info(z):
+    zi = z[0]
+    to = tag_order.index(zi[0])
+    return (to, zi[1:])
+
+
+def sort_by_tag(trl):
+    # sort by tag, gm_treat, tup, tdiv
+    trinfo = [list(tag_tr(tr, ttreat)) for tr in trl]
+    ztr = zip(trinfo, trl)
+    ztr_srt = sorted(ztr, key=sort_info)
+
+    trinfo_srt = [x for (x,y) in ztr_srt]
+    trl_srt = [y for (x,y) in ztr_srt]
+    return trl_srt, trinfo_srt
+
+def bin_dtmat(mat, bx=3, by=1):
+    bx = int(bx)
+    by = int(by)
+    nx = len(mat[0,:])
+    ny = len(mat)
+    mx = nx % bx
+    my = ny % by
+
+    if mx:
+        binmat = mat[:, :-mx]
+    if my:
+        binmat = mat[:-my, :]
+
+    nx2 = nx/bx
+    ny2 = ny/by
+
+    binmat = nanmean(nanmean(binmat.reshape(ny2,by,nx2,bx), axis = 1), axis = 2)
+
+    return binmat
+
+
+
+    
+
+# ion()
+fig1 = figure(1)
+figure(1)
+imshow(fc2, vmin=0, vmax=40, extent=(tvec.min(), tvec.max(), 1, len(fca2)), aspect = 'auto', origin = 'lower', interpolation = 'none', cmap=cm.coolwarm)
+cb = colorbar()
+cb.ax.tick_params(labelsize=14)
+tick_params(labelsize=14)
+xlabel('Time (h)', size=14)
+title('# 53BP1 Foci ' + figtitle, size=14)
+
+fig2 = figure(2)
+figure(2)
+imshow(gm2, vmin=nanmin(gm2), vmax=nanmax(gm2), extent=(tvec.min(), tvec.max(), 1, len(gma2)), aspect = 'auto', origin = 'lower', interpolation = 'none', cmap=cm.YlGn)
+cb = colorbar()
+cb.ax.tick_params(labelsize=14)
+tick_params(labelsize=14)
+xlabel('Time (h)', size=14)
+title('Geminin Intensity [AU] ' + figtitle, size=14)
+
+cpos = 0
+for i,tg in enumerate(cttag_srt):
+    ytxt = 0.5 * tg[1] + cpos
+    yl = tg[1] + cpos
+    figure(1)
+    # axhline(yl, ls = '--', linewidth = 2., color = 'darkgreen')
+    axhline(yl, ls = '--', linewidth = 3., color = 'firebrick')
+    text(-10, ytxt, tg[0], color = 'firebrick', size = 14)
+
+    figure(2)
+    #mediumspringgreen
+    axhline(yl, ls = '--', linewidth = 3., color = 'firebrick')
+    text(-10, ytxt, tg[0], color = 'firebrick', size = 14)
+
+    cpos = yl
+fig1.savefig(opath + figname + '_Foci' + '.pdf')
+fig2.savefig(opath + figname + '_GMNN' + '.pdf')
+#show()
+close('all')
+
+
+
+
+#def sort_tag(z):
+#    to = tag_order.index(z[0])
+#    return to
