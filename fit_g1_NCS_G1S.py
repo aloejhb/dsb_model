@@ -31,7 +31,7 @@ xlim(trange)
 fig, ax1, ax2 = model.pltMultiSim(numSim=50)
 ax1.set_ylim(0,30)
 fig.suptitle(figname + ' model simulation', fontsize=18)
-fig.savefig('../results/manual_fit/' + figname + '_model_sim.png')
+fig.savefig('../results/manual_fit/' + figname + '_model_sim.pdf')
 
 
 par_grid = [('twash',linspace(1., 40., 20)), ('treg',linspace(1., 70., 20))]

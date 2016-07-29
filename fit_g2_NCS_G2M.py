@@ -24,7 +24,7 @@ trange = (0, 55)
 
 # pltCompr2Data(model, data, mdxind, trange)
 # pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50)
-
+'''
 figname = 'MYCNon_G2M'
 data.name = figname
 pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50, svfig = True)
@@ -32,19 +32,19 @@ xlim(trange)
 fig, ax1, ax2 = model.pltMultiSim(numSim=50)
 ax1.set_ylim(0,30)
 fig.suptitle(figname + ' model simulation', fontsize=18)
-fig.savefig('../results/manual_fit/' + figname + '_model_sim.png')
-
+fig.savefig('../results/manual_fit/' + figname + '_model_sim.pdf')
 
 
 par_grid = [('conv',linspace(0.001, 0.2, 20)), ('rHR2',linspace(0.001, 0.1, 20))]
 lscp_md = copy.deepcopy(model)
 # xx, yy, obj = landscape(lscp_md, data, mdxind, par_grid, trange, svfig = True)
+'''
 
 
 
 fitpars = {}
 fixpars = {} 
-fitpars_nm = ['D', 'conv']
+fitpars_nm = ['D', 'conv', 'rHR2']
 for nm in fitpars_nm:
     fitpars[nm] = pars[nm]
 

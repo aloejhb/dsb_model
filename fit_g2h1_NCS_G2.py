@@ -1,4 +1,4 @@
-from model_g2 import md_g2 as model
+from model_g2h1 import md_g2h1 as model
 from data_funcs import *
 from fit_funcs import *
 from pylab import *
@@ -13,7 +13,7 @@ dtxind = 3
 
 track_list, data = loadData(trackPath, exp, dtxind, sfreq, startFrm)
 # pars = {'D':24.3, 'alph':0.83, 'rNH':0.065, 'conv':0.02, 'rHR2':0.02}
-pars = {'D':23.42, 'alph':0.89, 'rNH':0.056, 'conv':0.012, 'rHR2':0.02}
+pars = {'D':23.42, 'alph':0.89, 'rNH':0.056, 'beta':0.012, 'rHR2':0.02}
 pars.update({'b':0.18})
 pars.update( {'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05} )
 
@@ -42,8 +42,8 @@ lscp_md = copy.deepcopy(model)
 
 fitpars = {}
 fixpars = {} 
-fitpars_nm = ['D', 'alph', 'rNH', 'conv', 'rHR2']
-# fitpars_nm = ['D', 'conv', 'rHR2']
+# fitpars_nm = ['D', 'alph', 'rNH', 'beta', 'rHR2']
+fitpars_nm = ['D', 'beta', 'rHR2']
 
 for nm in fitpars_nm:
     fitpars[nm] = pars[nm]

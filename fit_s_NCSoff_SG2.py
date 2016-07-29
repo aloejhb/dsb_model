@@ -26,7 +26,6 @@ trange = (0, 55)
 
 # pltCompr2Data(model, data, mdxind, trange)
 # pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50)
-'''
 figname = 'MYCNoff_SG2'
 data.name = figname
 pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50, svfig = True)
@@ -34,9 +33,9 @@ xlim(trange)
 fig, ax1, ax2 = model.pltMultiSim(numSim=50)
 ax1.set_ylim(0,45)
 fig.suptitle(figname + ' model simulation', fontsize=18)
-fig.savefig('../results/manual_fit/' + figname + '_model_sim.png')
-'''
+fig.savefig('../results/manual_fit/' + figname + '_model_sim.pdf')
 
+'''
 par_grid = [('conv',linspace(0.001, 0.2, 20)), ('rHR2',linspace(0.001, 0.1, 20))]
 lscp_md = copy.deepcopy(model)
 # xx, yy, obj = landscape(lscp_md, data, mdxind, par_grid, trange, svfig = True)
@@ -57,4 +56,4 @@ bd_dict = {}
 
 # fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
-
+'''
