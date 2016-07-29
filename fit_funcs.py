@@ -169,7 +169,7 @@ def pltCompr2Data(model, data, mdxind, trange = None, ssim = False, numSim = 200
     if svfig:
         # timestmp = datetime.datetime.now().strftime("-%Y-%m-%d-%H-%M-%s")
         timestmp = ''
-        savefig(opath + figname + timestmp + '.png')
+        savefig(opath + figname + timestmp + '.pdf')
         f = open(opath + figname + timestmp + '.txt', 'w')
         f.write('Parameters:\n')
         f.write(model.printPars(tofile = True))
