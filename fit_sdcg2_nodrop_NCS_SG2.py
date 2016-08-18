@@ -1,9 +1,12 @@
-from model_sg2dc import md_sg2dc as model
+from model_sdcg2 import md_sdcg2 as model
 from data_funcs import *
 from fit_funcs import *
 from pylab import *
 import copy
 import numdifftools as nd
+
+model.name = 'sdcg2_nodrop'
+
 
 trackPath = '../results/replot_data/'
 exp = 'NCS_SG2'
@@ -12,16 +15,14 @@ startFrm = 200
 dtxind = 3
 
 track_list, data = loadData(trackPath, exp, dtxind, sfreq, startFrm)
-# pars = {'D':23.89, 'alph':0.8, 'alph_s':0.42, 'rNH':0.052, 'dp':0.12, 'beta':0.02, 'rHR':0.02}
-# fitted parameters from sdcg2dc
-pars =  {'D':24.217, 'alph':0.8795, 'alph_s':0.8795, 'rNH':0.0391, 'dp':0.12, 'beta':0.1049, 'rHR':0.02}
-
+pars = {'D':23.89, 'alph':0.8, 'alph_s':0.8, 'rNH':0.052, 'beta':0.02, 'rHR':0.02, 'conv':0.024, 'rHR2':0.02} 
 pars.update({'b':0.18})
 pars.update({'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05})
-pars.update({'ts':6.5, 'ts_dl':1., 'tg2':12., 'tg2_dl':2.} )
+pars.update({'ts':6.5, 'ts_dl':1., 'tg2':12., 'tg2_dl':2.})
 
 model.setAllPars(pars)
-mdxind = 1
+ 
+mdxind = 5
 # trange = (0, 55)
 trange = (0, 40)
 
@@ -45,7 +46,7 @@ lscp_md = copy.deepcopy(model)
 
 fitpars = {}
 fixpars = {} 
-fitpars_nm = ['dp']
+fitpars_nm = ['D', 'beta', 'rNH', 'conv']
 for nm in fitpars_nm:
     fitpars[nm] = pars[nm]
 

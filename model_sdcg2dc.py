@@ -11,11 +11,9 @@ def mk_pfuncs(p):
 
     pfuncs.append(spline_pfunc((p['rNH'],), (), (), mk_hfunc((1,)), ttime))
 
-    # pfuncs.append(spline_pfunc((0, p['dp'], 0), (p['ts'], p['tg2']), (p['ts_dl'], p['tg2_dl']), mk_hfunc((1,)), ttime))
+    pfuncs.append(spline_pfunc((0, p['beta']), (p['ts'],), (p['ts_dl'],), mk_hfunc((0,)), ttime))
 
-    pfuncs.append(spline_pfunc((0, p['beta'], p['beta']), (p['ts'], p['tg2']), (p['ts_dl'], p['tg2_dl']), mk_hfunc((0,)), ttime))
-
-    pfuncs.append(spline_pfunc((0, p['rHR'], p['rHR']), (p['ts'], p['tg2']), (p['ts_dl'], p['tg2_dl']), mk_hfunc((2,)), ttime))
+    pfuncs.append(spline_pfunc((0, p['rHR']), (p['ts'],), (p['ts_dl'],), mk_hfunc((2,)), ttime))
 
     return pfuncs
 
@@ -32,10 +30,10 @@ xname = ['gammaH2AX', '53BP1+gammaH2AX', 'RAD51+gammaH2AX']
 xcolor = ['dodgerblue', 'red', 'green']
 detxcolor = ['cornflowerblue', 'rosybrown', 'lime']
 
-obsinds = [(0,1,2), (1,)]
-obsname = ['total gammaH2AX', 'total 53BP1']
-obscolor = ['grey', 'm']
-detobscolor = ['black', 'blueviolet']
+obsinds = [(0,1,2)]
+obsname = ['total gammaH2AX']
+obscolor = ['grey']
+detobscolor = ['black']
 
 pname = ['DNA_dam', '53BP1_recrt', 'NHEJ_repr', 'RAD51_recrt', 'HR_repr']
 pcolor = ['blue', 'red', 'm', 'green', 'lime']

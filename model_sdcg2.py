@@ -11,8 +11,6 @@ def mk_pfuncs(p):
 
     pfuncs.append(spline_pfunc((p['rNH'],), (), (), mk_hfunc((1,)), ttime))
 
-    # pfuncs.append(spline_pfunc((0, p['dp'], 0), (p['ts'], p['tg2']), (p['ts_dl'], p['tg2_dl']), mk_hfunc((1,)), ttime))
-
     pfuncs.append(spline_pfunc((0, p['beta'], 0), (p['ts'], p['tg2']), (p['ts_dl'], p['tg2_dl']), mk_hfunc((0,)), ttime))
 
     pfuncs.append(spline_pfunc((0, p['rHR']), (p['ts'],), (p['ts_dl'],), mk_hfunc((2,)), ttime))
@@ -33,12 +31,12 @@ pars.update({'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05, 'ts':7.
 
 pfuncs = mk_pfuncs(pars)
 
-xname = ['gammaH2AX', '53BP1+gammaH2AX', 'RAD51+gammaH2AX', 'RAD51+53BP1+gammaH2AX']
+xname = ['$\gamma$H2AX', '53BP1+$\gamma$H2AX', 'RAD51+$\gamma$H2AX', 'RAD51+53BP1+$\gamma$H2AX']
 xcolor = ['dodgerblue', 'red', 'green', 'darkorange']
 detxcolor = ['cornflowerblue', 'rosybrown', 'lime', 'saddlebrown']
 
 obsinds = [(0,1,2,3), (1,3)]
-obsname = ['total gammaH2AX', 'total 53BP1']
+obsname = ['total $\gamma$H2AX', 'total 53BP1']
 obscolor = ['grey', 'm']
 detobscolor = ['black', 'blueviolet']
 

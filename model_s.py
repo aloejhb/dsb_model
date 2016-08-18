@@ -33,12 +33,12 @@ pars.update({'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05, 'ts':7.
 
 pfuncs = mk_pfuncs(pars)
 
-xname = ['gammaH2AX', '53BP1+gammaH2AX', 'RAD51+gammaH2AX', 'RAD51+53BP1+gammaH2AX']
+xname = ['$\gamma$H2AX', '53BP1+$\gamma$H2AX', 'RAD51+$\gamma$H2AX', 'RAD51+53BP1+$\gamma$H2AX']
 xcolor = ['dodgerblue', 'red', 'green', 'darkorange']
 detxcolor = ['cornflowerblue', 'rosybrown', 'lime', 'saddlebrown']
 
 obsinds = [(0,1,2,3), (1,3)]
-obsname = ['total gammaH2AX', 'total 53BP1']
+obsname = ['total $\gamma$H2AX', 'total 53BP1']
 obscolor = ['grey', 'm']
 detobscolor = ['black', 'blueviolet']
 

@@ -1,8 +1,7 @@
-
 from pfuncs_ssa import *
 from model_funcs import *
 
-mdname = 'g2h1'
+mdname = 'g2dc'
 def mk_pfuncs(p):
     pfuncs = []
 
@@ -14,28 +13,28 @@ def mk_pfuncs(p):
 
     pfuncs.append(spline_pfunc((p['beta'],), (), (), mk_hfunc((0,)), ttime))
 
-    pfuncs.append(spline_pfunc((p['rHR2'],), (), (), mk_hfunc((2,)), ttime))
+    pfuncs.append(spline_pfunc((p['rHR'],), (), (), mk_hfunc((2,)), ttime))
 
 
     return pfuncs
 
 ttime = 100.
-x0 = [0, 1, 0, 0]
-stoich = array(([1, 0, 0], [-1, 1, 0], [0, -1, 0], [-1, 1, 0], [0, 0, -1]))
-pars = {'D':20., 'alph':0.4, 'rNH':0.5, 'beta':0.4, 'conv':0.4, 'rHR2':0.4}
+x0 = [0, 1, 0]
+stoich = array(([1, 0, 0], [-1, 1, 0], [0, -1, 0], [-1, 0, 1], [0, 0, -1]))
+pars = {'D':20., 'alph':0.4, 'rNH':0.5, 'beta':0.4, 'rHR':0.4}
 pars.update({'b':0.45})
 pars.update({'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05})
 
 pfuncs = mk_pfuncs(pars)
 
-xname = ['gammaH2AX', '53BP1+gammaH2AX', 'RAD51+gammaH2AX']
+xname = ['$\gamma$H2AX', '53BP1+$\gamma$H2AX', 'RAD51+$\gamma$H2AX']
 xcolor = ['dodgerblue', 'red', 'green']
 detxcolor = ['cornflowerblue', 'rosybrown', 'lime']
 
-obsinds = [(0,1,2), (1,)]
-obsname = ['total gammaH2AX', 'total 53BP1']
-obscolor = ['grey', 'm']
-detobscolor = ['black', 'blueviolet']
+obsinds = [(0,1,2)]
+obsname = ['Total $\gamma$H2AX']
+obscolor = ['grey']
+detobscolor = ['black']
 
 pname = ['DNA_dam', '53BP1_recrt', 'NHEJ_repr', 'RAD51_recrt', 'HR_repr']
 pcolor = ['blue', 'red', 'm', 'green', 'gold']
@@ -43,5 +42,4 @@ pcolor = ['blue', 'red', 'm', 'green', 'gold']
 fuzz = None
 # fuzz = {'tcc2':('exponential', 10.)}
 
-md_g2h1 = Model(mdname, x0, stoich, ttime, mk_pfuncs, pars, xname, xcolor, detxcolor, pname, pcolor, obsinds, obsname, obscolor, detobscolor, fuzz)
-
+md_g2dc = Model(mdname, x0, stoich, ttime, mk_pfuncs, pars, xname, xcolor, detxcolor, pname, pcolor, obsinds, obsname, obscolor, detobscolor, fuzz)

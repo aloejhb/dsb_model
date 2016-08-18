@@ -116,6 +116,7 @@ class Model:
         return sol, t
 
     def detSim(self, tvec):
+        
         ode = self.mk_ode()
         detsol = odeint(ode, self.x0, tvec)
 

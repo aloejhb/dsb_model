@@ -12,16 +12,16 @@ startFrm = 200
 dtxind = 3
 
 track_list, data = loadData(trackPath, exp, dtxind, sfreq, startFrm)
-# pars = {'D':23.89, 'alph':0.8, 'alph_s':0.42, 'rNH':0.052, 'beta':0.02, 'rHR':0.02}
+pars = {'D':23.89, 'alph':0.9, 'alph_s':0.42, 'rNH':0.052, 'beta':0.02, 'rHR':0.02}
 # fitting result on 29/07
-pars = {'D':25.4905, 'alph':0.8, 'alph_s': 0.0096, 'rNH':0.0388, 'beta':0.1250, 'rHR':0.02}
+# pars = {'D':25.4905, 'alph':0.8, 'alph_s': 0.0096, 'rNH':0.0388, 'beta':0.1250, 'rHR':0.02}
 
 pars.update({'b':0.18})
 pars.update({'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05})
 pars.update({'ts':6.5, 'ts_dl':1., 'tg2':12., 'tg2_dl':2.} )
 
 model.setAllPars(pars)
-mdxind = 4
+mdxind = 1
 # trange = (0, 55)
 trange = (0, 40)
 
@@ -45,7 +45,7 @@ lscp_md = copy.deepcopy(model)
 
 fitpars = {}
 fixpars = {} 
-fitpars_nm = ['D', 'alph_s', 'rNH', 'beta']
+fitpars_nm = ['D', 'alph', 'alph_s', 'rNH', 'beta']
 for nm in fitpars_nm:
     fitpars[nm] = pars[nm]
 
@@ -56,6 +56,6 @@ for nm in pars.keys():
 bd_dict = {}
 
 
-# fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
+fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
 

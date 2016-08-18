@@ -55,6 +55,6 @@ for nm in pars.keys():
 bd_dict = {}
 
 
-fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
+# fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
 

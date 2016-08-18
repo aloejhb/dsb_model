@@ -1,4 +1,4 @@
-from model_sg2dc import md_sg2dc as model
+from model_scvg2 import md_scvg2 as model
 from data_funcs import *
 from fit_funcs import *
 from pylab import *
@@ -12,16 +12,16 @@ startFrm = 200
 dtxind = 3
 
 track_list, data = loadData(trackPath, exp, dtxind, sfreq, startFrm)
-# pars = {'D':23.89, 'alph':0.8, 'alph_s':0.42, 'rNH':0.052, 'dp':0.12, 'beta':0.02, 'rHR':0.02}
-# fitted parameters from sdcg2dc
-pars =  {'D':24.217, 'alph':0.8795, 'alph_s':0.8795, 'rNH':0.0391, 'dp':0.12, 'beta':0.1049, 'rHR':0.02}
-
+# pars = {'D':23.89, 'alph':0.8, 'rNH':0.052, 'beta':0.02, 'rHR':0.02, 'sconv': 0.02, 'conv':0.024, 'rHR2':0.02}
+# fit 07.08
+pars = {'D': 20.21, 'alph': 0.8, 'rNH': 0.034, 'beta': 0.052, 'rHR': 0.2, 'sconv': 0.014, 'conv': 0.001, 'rHR2':0.2}
 pars.update({'b':0.18})
 pars.update({'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05})
-pars.update({'ts':6.5, 'ts_dl':1., 'tg2':12., 'tg2_dl':2.} )
+pars.update({'ts':6.5, 'ts_dl':1., 'tg2':12., 'tg2_dl':2.})
 
 model.setAllPars(pars)
-mdxind = 1
+ 
+mdxind = 5
 # trange = (0, 55)
 trange = (0, 40)
 
@@ -45,7 +45,7 @@ lscp_md = copy.deepcopy(model)
 
 fitpars = {}
 fixpars = {} 
-fitpars_nm = ['dp']
+fitpars_nm = ['D', 'beta', 'rNH', 'sconv', 'conv']
 for nm in fitpars_nm:
     fitpars[nm] = pars[nm]
 
@@ -56,6 +56,6 @@ for nm in pars.keys():
 bd_dict = {}
 
 
-fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
+# fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
 

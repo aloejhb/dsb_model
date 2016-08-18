@@ -21,6 +21,7 @@ rc('axes', labelsize = 15)
 rc('xtick', labelsize = 15)
 rc('ytick', labelsize = 15)
 
+
 fig,axs = subplots(2,2, sharex='col', figsize = (10,7))
 
 

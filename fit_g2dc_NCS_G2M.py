@@ -1,4 +1,4 @@
-from model_g2h1 import md_g2h1 as model
+from model_g2dc import md_g2dc as model
 from data_funcs import *
 from fit_funcs import *
 from pylab import *
@@ -6,20 +6,19 @@ import copy
 import numdifftools as nd
 
 trackPath = '../results/replot_data/'
-exp = 'NCS_G2'
+exp = 'NCS_G2M'
 sfreq = 6.
 startFrm = 200
 dtxind = 3
 
 track_list, data = loadData(trackPath, exp, dtxind, sfreq, startFrm)
-# pars = {'D':24.3, 'alph':0.83, 'rNH':0.065, 'conv':0.02, 'rHR2':0.02}
-pars = {'D':23.42, 'alph':0.89, 'rNH':0.056, 'beta':0.012, 'rHR2':0.02}
+pars = {'D':23.535, 'alph':0.886, 'rNH':0.0745, 'beta':0., 'rHR':0.0306} 
 pars.update({'b':0.18})
 pars.update( {'ttreat':5., 'ttreat_dl':0.05, 'twash':6., 'twash_dl':0.05} )
 
 model.setAllPars(pars)
  
-mdxind = 4
+mdxind = 1
 trange = (0, 55)
 
 # pltCompr2Data(model, data, mdxind, trange)
@@ -42,8 +41,8 @@ lscp_md = copy.deepcopy(model)
 
 fitpars = {}
 fixpars = {} 
-# fitpars_nm = ['D', 'alph', 'rNH', 'beta', 'rHR2']
-fitpars_nm = ['D', 'beta', 'rHR2']
+fitpars_nm = ['D', 'alph', 'rNH', 'beta', 'rHR']
+# fitpars_nm = ['D', 'beta', 'rHR']
 
 for nm in fitpars_nm:
     fitpars[nm] = pars[nm]
@@ -55,6 +54,6 @@ for nm in pars.keys():
 bd_dict = {}
 
 
-fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
+# fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
 
