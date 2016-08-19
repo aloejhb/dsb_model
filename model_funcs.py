@@ -24,6 +24,15 @@ def convertJumps(sol, t, tvec):
         xvec.append(x_now)
     return array(xvec)
 
+def convert_rinds_to_racc(rinds, rnum):
+    racc = [[0]*rnum]
+    for ri in rinds[1:]:
+        rnow = racc[-1][:]
+        rnow[ri] += 1
+        racc.append(rnow)
+        
+    return array(racc)
+
 def setNewfig(title):
     fig = figure()
     fig.suptitle(title, fontsize=18)
@@ -101,19 +110,24 @@ class Model:
         self.pfunc_typ = pfunc_typ
 
 
-    def sim(self, ttime, pfuncs = None):
+    def sim(self, ttime, pfuncs=None, react_count=False):
         if pfuncs is None:
             pfuncs = self.pfuncs
 
         if self.pfunc_typ == 'spline':
-            sol, t = spline_switch_ssa(self.x0, ttime, pfuncs, self.stoich)
+            sol, t, rinds = spline_switch_ssa(self.x0, ttime, pfuncs, self.stoich, react_count=react_count)
         else:
-            sol, t = multi_switch_ssa(self.x0, ttime, pfuncs, self.stoich)
+            sol, t, rinds = multi_switch_ssa(self.x0, ttime, pfuncs, self.stoich, react_count=react_count)
 
         for inds in self.obsinds:
             obs = array([sol[:,ind] for ind in inds]).sum(axis = 0)
             sol = c_[sol, obs]
-        return sol, t
+
+        if react_count:
+            racc = convert_rinds_to_racc(rinds, len(pfuncs))
+            return sol, t, racc
+        else:
+            return sol, t
 
     def detSim(self, tvec):
         
@@ -126,8 +140,10 @@ class Model:
 
         return detsol
 
-    def multiSim(self, tvec, numSim = 200):
+    def multiSim(self, tvec, numSim=200, react_count=False):
         xall = []
+        if react_count:
+            rall = []
         ## process bar
         pbstr = ''
         pbstep = floor(float(numSim)/float(50))
@@ -147,13 +163,22 @@ class Model:
             else:
                 pfuncs = self.pfuncs
 
-            sol, t = self.sim(tvec[-1], pfuncs) 
+            if react_count:
+                sol, t, racc= self.sim(tvec[-1], pfuncs, react_count=True)
+                rall.append(racc)
+            else:
+                sol, t = self.sim(tvec[-1], pfuncs)
+                
             xvec = convertJumps(sol, t, tvec)
             xall.append(xvec)
+                
         xall = array(xall)
         print ""
 
-        return xall
+        if react_count:
+            return xall, rall
+        else:
+            return xall
 
 
     def setPars(self, newpars):

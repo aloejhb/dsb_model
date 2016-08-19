@@ -25,6 +25,7 @@ trange = (0, 55)
 
 # pltCompr2Data(model, data, mdxind, trange)
 # pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50)
+'''
 figname = 'MYCNoff_G1S'
 data.name = figname
 pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50, svfig = True)
@@ -53,3 +54,4 @@ bd_dict = {}
 # fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
 
+'''

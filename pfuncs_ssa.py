@@ -60,7 +60,7 @@ class spline_pfunc:
     def intFunc(self, t, x, tau):
        return (self.intCfunc(t+tau) - self.intCfunc(t)) * self.hfunc(x)
 
-def multi_switch_ssa(x0, ttime, pfuncs, stoich):
+def multi_switch_ssa(x0, ttime, pfuncs, stoich, react_count=False):
     
     # initiation
     t = 0
@@ -170,13 +170,14 @@ def A0_func(pfuncs, t, x, tau):
 # Output:
 #   sol: particle num of species at each time point of reaction
 #   time: array of time points for reactions to take place
-def spline_switch_ssa(x0, ttime, pfuncs, stoich, tauMax=tauMax, Ntau=Ntau):
+def spline_switch_ssa(x0, ttime, pfuncs, stoich, tauMax=tauMax, Ntau=Ntau, react_count=False):
 
     # Initiation
     t = 0 # curren time
     x = array(x0) # current particle num of species
     time = [0] # time: array of time points for reactions to take place
     sol = [x0] # particle num of species at each time point of reaction
+    rinds = [None]
     tauMax = float(tauMax)
 
     tsw = []
@@ -238,7 +239,11 @@ def spline_switch_ssa(x0, ttime, pfuncs, stoich, tauMax=tauMax, Ntau=Ntau):
         time.append(t)
         sol.append(x)
 
-    return array(sol), array(time)
+        if react_count:
+                rinds.append(mu)
+
+
+    return array(sol), array(time), array(rinds)
 
 
 

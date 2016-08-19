@@ -20,8 +20,12 @@ model.setAllPars(pars)
 
 mdxind = 1
 trange = (0, 55)
-# trange = (0, 30) 
+# trange = (0, 30)
 
+tvec = linspace(0, 100, 4*100 + 1)
+xall, rall = model.multiSim(tvec, numSim=3, react_count=True)
+
+'''
 # pltCompr2Data(model, data, mdxind, trange)
 # pltCompr2Data(model, data, mdxind, trange, ssim = True, numSim = 50)
 figname = 'MYCNon_G1S'
@@ -53,4 +57,4 @@ bd_dict = {}
 
 # fit(model, data, mdxind, fitpars, fixpars, None, trange, 'Nelder-Mead')
 # rndFit(model, data, mdxind, fitpars, fixpars, bd_dict, trange, fit_met, numRnd = 10)
-
+'''
